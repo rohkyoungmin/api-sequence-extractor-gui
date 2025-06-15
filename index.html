@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Android API Sequence Extractor</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- 왼쪽 소개 -->
+    <div class="left">
+      <h1>Android API <span class="highlight">Sequence</span><br />Extractor</h1>
+      <p>
+        Automatically analyze benign and malicious APK files, extract class-level API call sequences, and export labeled results in CSV format.
+      </p>
+      <button onclick="window.location.href='dashboard.html'">
+        Start Analysis <span class="arrow">→</span>
+      </button>
+    </div>
+
+    <!-- 오른쪽 터미널 -->
+    <div class="right">
+      <div class="terminal-box">
+        <!-- 상단바 (macOS 스타일) -->
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="title">android-api-extractor</span>
+        </div>
+        <!-- 본문 -->
+        <pre class="terminal-body" id="terminal-text"></pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const terminalText = `
+> Loading APKs from benign/ and malicious/
+> Parsing .dex files...
+> Extracting invoke-* instructions
+> Abstracting APIs to class-level
+> Saving to output/api_sequences.csv
+>`;
+
+    const target = document.getElementById('terminal-text');
+    let i = 0;
+
+    function typeNextChar() {
+      if (i < terminalText.length) {
+        target.textContent += terminalText.charAt(i);
+        i++;
+        setTimeout(typeNextChar, 25);
+      } else {
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        target.appendChild(cursor);
+      }
+    }
+
+    window.onload = typeNextChar;
+  </script>
+</body>
+</html>
